@@ -66,17 +66,18 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+            <button type="submit" class="btn btn-primary btn-block">Loguearse</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
-  
+      <br>
 
       <p class="mb-1">
         <a href="forgot-password.html">Olvide la Contraseña</a>
       </p>
+      <br>
       <p class="mb-0">
         <a href="register.html" class="text-center">Registrar una Cuenta</a>
       </p>
