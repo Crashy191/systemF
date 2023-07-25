@@ -1,0 +1,213 @@
+CREATE DATABASE IF NOT EXISTS `medicamentos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `medicamentos`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `failed_jobs`
+--
+
+DROP TABLE IF EXISTS `failed_jobs`;
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `medicamentos`
+--
+
+DROP TABLE IF EXISTS `medicamentos`;
+CREATE TABLE IF NOT EXISTS `medicamentos` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detalles` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fecha_vencimiento` date NOT NULL,
+  `lote` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registro_invima` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imagen` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cantidad` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `precio` decimal(10,2) NOT NULL,
+  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `medicamentos_slug_unique` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `medicamentos`
+--
+
+INSERT INTO `medicamentos` (`id`, `nombre`, `detalles`, `fecha_vencimiento`, `lote`, `slug`, `registro_invima`, `imagen`, `cantidad`, `precio`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'acetaminofenn', 'sdsds', '2023-07-28', '4554', 'acetaminofenn', '123456', '1690294250_1690218397.png', 45, '45455.00', 'active', '2023-07-24 19:36:07', '2023-07-25 19:10:50');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2014_10_12_100000_create_password_resets_table', 1),
+(4, '2019_08_19_000000_create_failed_jobs_table', 1),
+(5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(6, '2023_07_19_135437_create_medicamentos_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_reset_tokens`
+--
+
+DROP TABLE IF EXISTS `password_reset_tokens`;
+CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personal_access_tokens`
+--
+
+DROP TABLE IF EXISTS `personal_access_tokens`;
+CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('admin','vendor','customer') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
+  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Administrador', 'admin@gmail.com', NULL, '$2y$10$HHe3P7TYPf0nDjK5YjBATOP1n43nSMeK.GzNj84ChaofuQR9jebgK', 'admin', 'active', NULL, NULL, NULL),
+(2, 'Vendor', 'vendor@gmail.com', NULL, '$2y$10$6tH7sOi.q8cEW4ynj1CcbeVo4VsgM9C3spsDm4D4S2pHcEWEEQJ/m', 'vendor', 'active', NULL, NULL, NULL),
+(3, 'Carlos customer', 'customer@gmail.com', NULL, '$2y$10$LioFAEyFUdN/J8mcqueaD.5Cwm7lDw7uX3QqpVIkydaroOp57Db56', 'customer', 'active', NULL, NULL, NULL),
+(4, 'Wilfredo Walsh', 'durgan.elmore@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'YZFOGOvKG2', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(5, 'Dashawn Pagac', 'louvenia52@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'RXdCenMYZd', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(6, 'Kaitlin Prohaska', 'jaime05@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', 'zptG1wlX5H', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(7, 'Dejah Weimann', 'greenfelder.shaniya@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'AD4KH2TURd', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(8, 'Lonny McLaughlin', 'dawson28@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'lJZ7G4iCsV', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(10, 'Jacey Berge', 'carolyne82@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', 'yXZcB25OgB', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(11, 'Ms. Pansy Steuber', 'luettgen.troy@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'Gnj8fjcARA', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(12, 'Cecil Kreiger', 'ykerluke@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'kO86Zoas9t', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(13, 'Kelli Schiller', 'maximillia.mertz@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', 'Xbi00DKSlZ', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(14, 'Cleve Blanda', 'teresa.nikolaus@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'zfVneoJgNp', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(15, 'Lavada Monahan', 'davon94@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', '4WVWrjD1a3', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(16, 'Raleigh Volkman', 'quinton60@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'dKfOdXYxEq', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(17, 'Ms. Delilah Rath Sr.', 'onie27@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', 'VoRGGvnHct', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(18, 'Emmet Mayert', 'nbruen@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'js7Tv3Ktov', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(19, 'Javon Lowe', 'rtromp@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'UmQj3Xhb8p', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(20, 'Dr. Myra Borer Sr.', 'wrempel@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'Y9CXBvIiaS', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(21, 'Nelda Hirthe', 'jbeier@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', '7VDoewArJ3', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(22, 'Emmie Jones', 'marlin.sanford@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'Eck0hlQQ3W', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(23, 'Quentin Hintz', 'jefferey.rice@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'VXvu8HCGgm', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(24, 'Casimer Turner IV', 'leuschke.clarissa@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', 'HPYvVunxii', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(25, 'Titus Spinka', 'isabel.cruickshank@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'QgRHHUvrx9', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(26, 'Norwood Cartwright', 'jacobi.alberta@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'C2poyS5W6d', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(27, 'Citlalli Greenholt', 'nstamm@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'PORHKsvomv', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(28, 'Bonnie Beahan', 'mckenzie.americo@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'j46D8bysws', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(29, 'Prof. Grant Bergstrom IV', 'grimes.kailee@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', '1jHv7t9n8l', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(30, 'Dr. Jade Kerluke DVM', 'arvel45@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'OgsV0DECLp', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(31, 'Gabriella Hickle', 'alena.kreiger@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'tzgQLq8KLQ', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(32, 'Seamus Blanda', 'carley.wuckert@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'qURzWMdST3', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(33, 'Dr. Phyllis Corkery DVM', 'esteban22@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', '2kR5wYC6sy', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(34, 'Denis Hodkiewicz', 'plynch@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'A7pmsGp7MA', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(35, 'Micah Hessel', 'emard.lauryn@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', '6PzgvsdBXq', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(36, 'Dr. Precious Herzog', 'federico.moen@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'cPhFLEFIW4', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(37, 'Dr. Serena Pouros', 'violette93@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'active', 'M9R2hSOFxx', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(38, 'Marcelo Bernier', 'zboncak.ismael@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'aCv7rRvRfL', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(39, 'Marlee Cruickshank', 'mrobel@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'CX1IUfq5Yp', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(40, 'Narciso Krajcik', 'kozey.joshua@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'AQN57eXHnd', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(41, 'Maye Prohaska', 'constantin.reynolds@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'nGWKsSbCwN', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(42, 'Madilyn Parisian V', 'chadd.robel@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'oMWWnGk4z0', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(43, 'Melba Kassulke', 'jenkins.ursula@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'Blx1GQZXIu', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(44, 'Maida Homenick I', 'jackeline78@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'RlWXx38atD', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(45, 'Mrs. Jude Yundt IV', 'thea.mosciski@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', 'Gc7nWe9S3v', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(46, 'Dr. Arturo Kovacek', 'wunsch.mafalda@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'iN7WShP4t0', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(47, 'Leatha Heller', 'vmueller@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vendor', 'inactive', 'qHHNfKknSl', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(48, 'Aiyana Powlowski', 'gus.wisoky@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active', '9bEeAPZTCb', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(49, 'Alysha Steuber', 'mwaelchi@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'inactive', 'GTVNg8ySOT', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(50, 'Rebeka Runte', 'hayley.senger@example.com', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'ctedwvqcPW', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(51, 'Mr. Rolando Schoen', 'qlarkin@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', '8DfKXSxVwH', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(52, 'Zelma West', 'jhaley@example.org', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'UbtL6S8ANB', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(53, 'Prof. Alize Kunde DDS', 'jaqueline.dickinson@example.net', '2023-07-20 17:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'y2kGxxFtQz', '2023-07-20 17:50:12', '2023-07-20 17:50:12'),
+(54, 'Camil', 'camil@gmail.com', NULL, '$2y$10$w.SbzeJrYSVra9YDmQzxz.Tk11sWzFHHJjSD3mqLM4mEBtHnu3xky', 'customer', 'active', NULL, '2023-07-24 23:32:44', '2023-07-24 23:32:44'),
+(55, 'Camil', 'camilo@gmail.com', '2023-07-24 23:36:08', '$2y$10$vMGXz8UOrCsjkQ6Mp8jxnu1KIr6eOfe.sUSjoSTy6k6G7tdl1cVru', 'customer', 'active', '', '2023-07-24 23:36:08', '2023-07-24 23:36:08');
+COMMIT;
