@@ -11,7 +11,7 @@ composer install
 ```bash
 php artisan serve
 ```
-o en su defecto, pasar el proyecto a la carpeta de proyecto XAMPP (Por defecto htdocs), correr el apache desde ahí y luego abrir el sitio WEB.
+o en su defecto, pasar el proyecto a la carpeta de  XAMPP (Por defecto htdocs), correr el apache desde ahí y luego abrir el sitio WEB.
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 

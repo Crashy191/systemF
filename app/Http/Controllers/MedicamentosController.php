@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Medicamento;
+use App\Models\Venta;
 use Illuminate\Support\Str;
 class MedicamentosController extends Controller
 {
@@ -16,6 +17,55 @@ class MedicamentosController extends Controller
         $medicamentos=Medicamento::orderBy('id')->get();
         return view('backend.medicamento.index',compact('medicamentos'));
     }
+    public function list()
+    {
+        try {
+            $medicamentos = Medicamento::all();
+            return response()->json($medicamentos);
+            
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al obtener los medicamentos'], 500);
+        }
+    }
+  
+    public function confirmarCompra(Request $request) {
+        try {
+            $medicamentosCompra = $request->input('medicamentos');
+            $totalCompra = $request->input('total');
+            $productosResumidos = [];
+            foreach ($medicamentosCompra as $medicamento) {
+                $producto = Medicamento::find($medicamento['id']);
+                if ($producto) {
+                    // Restar la cantidad comprada del inventario del medicamento
+                    $producto->cantidad -= $medicamento['cantidad'];
+                    $producto->save();
+
+                    // Agregar el nombre y cantidad al array de productos resumidos
+                   /* $productosResumidos[] = [
+                        'nombre' => $producto->nombre,
+                        'cantidad' => $medicamento['cantidad']
+                    ];*/
+                    $productosResumidos[] = "{$producto->nombre} - Cantidad: {$medicamento['cantidad']}";
+                }
+            }
+            $data['productos'] = implode(', ', $productosResumidos);
+           // $data['productos'] = json_encode($productosResumidos);
+            $data['total'] = $totalCompra;
+            $data['fecha_venta'] = now();
+
+            $venta = Venta::create($data);
+            if ($venta) {
+                request()->session()->flash('success', 'Venta Realizada con Éxito');
+            } else {
+                request()->session()->flash('error', 'Ha ocurrido un error mientras intentaba realizar la Venta');
+            }
+            return response()->json(['message' => 'Compra registrada con éxito'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al registrar la compra'], 500);
+        }
+    }
+    
+    
 
     /**
      * Show the form for creating a new resource.
@@ -139,7 +189,7 @@ class MedicamentosController extends Controller
             'fecha_vencimiento' => 'required|date',
             'status' => 'required|in:active,inactive',
             'registro_invima' => 'required|string|max:255',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+
             'precio' => 'required|numeric',
             'cantidad' => 'required|integer|min:0',
             'lote' => 'required|string',
