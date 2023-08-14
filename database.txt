@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-08-2023 a las 02:04:30
+-- Tiempo de generación: 14-08-2023 a las 12:09:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -14,6 +14,27 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `medicamentos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `banners`
+--
+
+INSERT INTO `banners` (`id`, `image_path`, `created_at`, `updated_at`) VALUES
+(1, '1691901620_Design.png', '2023-08-13 04:40:20', '2023-08-13 04:40:20'),
+(2, '1691901703_1690218372.png', '2023-08-13 04:41:43', '2023-08-13 04:41:43');
 
 -- --------------------------------------------------------
 
@@ -58,10 +79,10 @@ CREATE TABLE `medicamentos` (
 --
 
 INSERT INTO `medicamentos` (`id`, `nombre`, `detalles`, `fecha_vencimiento`, `lote`, `slug`, `registro_invima`, `imagen`, `cantidad`, `precio`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Ibuprofeno', 'asdad', '2023-07-26', '55550', 'ibuprofeno', '312313', '1691625183_ACETAM~1.PNG', 386, 4555.00, 'active', '2023-07-25 19:44:53', '2023-08-09 23:53:03'),
-(5, 'acetaminofen', 'Acetam', '2023-08-08', '2351', 'acetaminofen', 'sffzxc', '1691625293_acetaminofen-500-mg-x-10-tabletas-american-generics.jpg', 474, 3000.00, 'active', '2023-08-07 02:48:15', '2023-08-09 23:58:13'),
-(6, 'Dolex Forte', 'Dolex forte con su revolucionaria tecnología Optizorb, inicia la desintegración y liberación del medicamento en tan solo 5 minutos para combatir hasta 6 tipos de dolorfuerte* *El principio activo de dolex Forte combate 6 tipos de dolor: cabeza, muscular, espalda +, articular +, dental y garganta. +Asociado a dolor musculoesquelético.', '2023-08-08', '5454545', 'dolex-forte', 'sdad', '1691625232_descarga (1).jpg', 989, 4000.00, 'active', '2023-08-07 02:50:36', '2023-08-09 23:58:13'),
-(7, 'Dolex Gripa', 'x', '2023-08-08', '1', 'dolex-gripa', '312313', '1691625249_descarga (2).jpg', 187, 500.00, 'active', '2023-08-07 03:08:52', '2023-08-09 23:58:13');
+(2, 'Ibuprofeno', 'asdad', '2023-07-26', '55550', 'ibuprofeno', '312313', '1692003613_descarga (3).jpg', 386, 4555.00, 'active', '2023-07-25 19:44:53', '2023-08-14 09:00:13'),
+(5, 'acetaminofen', 'Acetam', '2023-08-08', '2351', 'acetaminofen', 'sffzxc', '1691625293_acetaminofen-500-mg-x-10-tabletas-american-generics.jpg', 466, 3000.00, 'active', '2023-08-07 02:48:15', '2023-08-14 07:49:48'),
+(6, 'Dolex Forte', 'Dolex forte con su revolucionaria tecnología Optizorb, inicia la desintegración y liberación del medicamento en tan solo 5 minutos para combatir hasta 6 tipos de dolorfuerte* *El principio activo de dolex Forte combate 6 tipos de dolor: cabeza, muscular, espalda +, articular +, dental y garganta. +Asociado a dolor musculoesquelético.', '2023-08-08', '5454545', 'dolex-forte', 'sdad', '1691625232_descarga (1).jpg', 976, 4000.00, 'active', '2023-08-07 02:50:36', '2023-08-14 08:43:09'),
+(7, 'Dolex Gripa', 'x', '2023-08-08', '1', 'dolex-gripa', '312313', '1691625249_descarga (2).jpg', 166, 500.00, 'active', '2023-08-07 03:08:52', '2023-08-14 07:52:45');
 
 -- --------------------------------------------------------
 
@@ -86,7 +107,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2019_08_19_000000_create_failed_jobs_table', 1),
 (5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (6, '2023_07_19_135437_create_medicamentos_table', 1),
-(7, '2023_08_01_033905_create_ventas_table', 2);
+(7, '2023_08_01_033905_create_ventas_table', 2),
+(8, '2023_08_11_031652_create_banners_table', 3),
+(11, '2023_08_12_212821_create_pedidos_table', 4);
 
 -- --------------------------------------------------------
 
@@ -120,22 +143,26 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `pedidos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `medicamento_id` bigint(20) UNSIGNED NOT NULL,
-  `nombre_medicamento` varchar(255) NOT NULL,
-  `cantidad` int(10) UNSIGNED NOT NULL,
-  `precio_unitario` decimal(10,2) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `telefono` int(11) DEFAULT NULL,
+  `informacion` varchar(255) DEFAULT NULL,
+  `status` enum('En Proceso','Finalizado','Cancelado') NOT NULL DEFAULT 'En Proceso',
+  `productos` text NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `fecha_venta` date DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `medicamento_id`, `nombre_medicamento`, `cantidad`, `precio_unitario`, `total`, `created_at`, `updated_at`, `fecha_venta`) VALUES
-(1, 2, 'Ibuprofeno', 2, 4555.00, 9110.00, '2023-08-01 06:09:05', '2023-08-01 06:09:05', '2023-08-01');
+INSERT INTO `pedidos` (`id`, `nombre`, `email`, `direccion`, `telefono`, `informacion`, `status`, `productos`, `total`, `created_at`, `updated_at`) VALUES
+(2, 'Administrador', 'admin@gmail.com', 'dfdfd', 4545, 'fdfdfdf', 'En Proceso', 'Dolex Gripa - Cantidad: 2, Dolex Forte - Cantidad: 1', 5000.00, '2023-08-14 07:52:45', '2023-08-14 07:52:45'),
+(3, 'Administrador', 'admin@gmail.com', 'Barrio San Judas', 123151, NULL, 'En Proceso', 'Dolex Forte - Cantidad: 2', 8000.00, '2023-08-14 08:38:12', '2023-08-14 08:38:12'),
+(4, 'Administrador', 'admin@gmail.com', 'Carrera 16 - Aeropuerto / Las Americas', 3214151, NULL, 'En Proceso', 'Dolex Forte - Cantidad: 2', 8000.00, '2023-08-14 08:43:09', '2023-08-14 08:43:09');
 
 -- --------------------------------------------------------
 
@@ -232,7 +259,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (50, 'Rebeka Runte', 'hayley.senger@example.com', '2023-07-20 22:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'ctedwvqcPW', '2023-07-20 22:50:12', '2023-07-20 22:50:12'),
 (51, 'Mr. Rolando Schoen', 'qlarkin@example.net', '2023-07-20 22:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', '8DfKXSxVwH', '2023-07-20 22:50:12', '2023-07-20 22:50:12'),
 (52, 'Zelma West', 'jhaley@example.org', '2023-07-20 22:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'active', 'UbtL6S8ANB', '2023-07-20 22:50:12', '2023-07-20 22:50:12'),
-(53, 'Prof. Alize Kunde DDS', 'jaqueline.dickinson@example.net', '2023-07-20 22:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'y2kGxxFtQz', '2023-07-20 22:50:12', '2023-07-20 22:50:12');
+(53, 'Prof. Alize Kunde DDS', 'jaqueline.dickinson@example.net', '2023-07-20 22:50:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'customer', 'inactive', 'y2kGxxFtQz', '2023-07-20 22:50:12', '2023-07-20 22:50:12'),
+(54, 'asdasda', 'admisdn@gmail.com', NULL, '$2y$10$IN6ZlnlfOJSr/iDe2BS3JePXwtYuTSclD0LcRDeL.gC50aLX0N1nC', 'customer', 'active', NULL, '2023-08-14 09:43:40', '2023-08-14 09:43:40'),
+(55, 'asdasda', 'admisddddn@gmail.com', NULL, '$2y$10$FOkxIQXgg1CGbVWtXyFqn.pPown4VUbtoadNyrY7gFyI/7ZCA5u/.', 'customer', 'active', NULL, '2023-08-14 09:44:43', '2023-08-14 09:44:43'),
+(56, 'asdasda', 'admisdddddddn@gmail.com', NULL, '$2y$10$uA31APNWq/l5p/sH9bZFju8lGbDMXf2r03qlaJvsqUC0BOdpsLdrO', 'customer', 'active', NULL, '2023-08-14 09:45:52', '2023-08-14 09:45:52');
 
 -- --------------------------------------------------------
 
@@ -258,11 +288,19 @@ INSERT INTO `ventas` (`id`, `productos`, `total`, `fecha_venta`, `created_at`, `
 (21, 'Ibuprofeno - Cantidad: 1', 4555.00, '2023-08-09', '2023-08-09 23:50:37', '2023-08-09 23:50:37'),
 (22, 'acetaminofen - Cantidad: 1', 3000.00, '2023-08-09', '2023-08-09 23:50:48', '2023-08-09 23:50:48'),
 (23, 'Dolex Forte - Cantidad: 3', 12000.00, '2023-08-09', '2023-08-09 23:57:25', '2023-08-09 23:57:25'),
-(24, 'acetaminofen - Cantidad: 3, Dolex Forte - Cantidad: 3, Dolex Gripa - Cantidad: 1', 21500.00, '2023-08-09', '2023-08-09 23:58:13', '2023-08-09 23:58:13');
+(24, 'acetaminofen - Cantidad: 3, Dolex Forte - Cantidad: 3, Dolex Gripa - Cantidad: 1', 21500.00, '2023-08-09', '2023-08-09 23:58:13', '2023-08-09 23:58:13'),
+(25, 'acetaminofen - Cantidad: 2', 6000.00, '2023-08-12', '2023-08-13 04:33:52', '2023-08-13 04:33:52'),
+(26, 'Dolex Forte - Cantidad: 1, Dolex Gripa - Cantidad: 1', 4500.00, '2023-08-13', '2023-08-13 17:43:40', '2023-08-13 17:43:40');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -300,8 +338,7 @@ ALTER TABLE `password_reset_tokens`
 -- Indices de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pedidos_medicamento_id_foreign` (`medicamento_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `personal_access_tokens`
@@ -329,6 +366,12 @@ ALTER TABLE `ventas`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -344,13 +387,13 @@ ALTER TABLE `medicamentos`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -362,21 +405,11 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `pedidos`
---
-ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_medicamento_id_foreign` FOREIGN KEY (`medicamento_id`) REFERENCES `medicamentos` (`id`);
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
