@@ -12,36 +12,41 @@
             <thead>
                 <tr>
                     <th>Pedido ID</th>
-                    <th>Medicamento ID</th>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Precio Unitario</th>
+                    <th>Correo Electronico</th>
+                    <th>Telefono</th>
+                    <th>Informacion</th>
+                    <th>Nombre del Cliente</th>
+                    <th>Dirección de Envío</th>
+                    <th>Productos</th>
+                    <th>Estado</th>
                     <th>Total</th>
-                    <th>Fecha de venta</th>
+                    <th>Fecha de Venta</th>
                     <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($pedidos as $pedido)
-                               <tr>
+                    <tr>
                         <td>{{ $pedido->id }}</td>
-                        <td>{{ $pedido->medicamento_id }}</td>
-                        <td>{{ $pedido->nombre_medicamento }}</td>
-                        <td>{{ $pedido->cantidad }}</td>
-                        <td>{{ $pedido->precio_unitario }}</td>
+                        <td>{{ $pedido->email }}</td>
 
+                        <td>{{ $pedido->telefono }}</td>
+                        <td>{{ $pedido->informacion }}</td>
+                        <td>{{ $pedido->nombre }}</td>
+                        <td>{{ $pedido->direccion }}</td>
+                        <td>{{ $pedido->productos }}</td>
+                        <td>{{ $pedido->status }}</td>
                         <td>{{ $pedido->total }}</td>
-                        <td>{{ $pedido->fecha_venta }}</td>
+                        <td>{{ $pedido->created_at }}</td>
                         <td>
-                            <a href="{{route('pedidos.edit', $pedido->id) }}" class="btn btn-primary btn-sm">Editar</a>
+                           <!-- <a href=" //route('pedidos.edit', $pedido->id) }}" class="btn btn-primary btn-sm">Editar</a> -->
                             <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="post" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este medicamento?')">Eliminar</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este pedido?')">Eliminar</button>
                             </form>
                         </td>
                     </tr>
-
                 @endforeach
             </tbody>
         </table>

@@ -79,7 +79,7 @@
       </p>
       <br>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Registrar una Cuenta</a>
+        <a href="{{ route('register.form') }}" class="text-center">Registrar una Cuenta</a>
       </p>
     </div>
     <!-- /.login-card-body -->

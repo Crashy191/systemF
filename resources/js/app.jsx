@@ -1,7 +1,56 @@
 import './bootstrap';
-// resources/js/app.js
-import React from 'react';
+import React, { useState } from "react";    
 import ReactDOM from 'react-dom';
-import CarritoMedicamentos from './components/CarritoMedicamentos';
+import MedicamentoItem from "./components/MedicamentoItem";
+import MedicamentoList from "./components/MedicamentoList";
 
-ReactDOM.render(<CarritoMedicamentos />, document.getElementById('carrito-container'));
+function App() {
+    const [carrito, setCarrito] = useState([]);
+
+    const addToCart = (medicamento) => {
+      setCarrito([...carrito, medicamento]);
+    };
+
+    const removeFromCart = (item) => {
+      const updatedCart = carrito.filter((cartItem) => cartItem.id !== item.id);
+      setCarrito(updatedCart);
+    };
+
+    const confirmarPedido = () => {
+      console.log("Pedido confirmado:", carrito);
+      setCarrito([]);
+    };
+
+    return (
+      <div>
+        <MedicamentoItem addToCart={addToCart} />
+        <MedicamentoList
+          carrito={carrito}
+          removeFromCart={removeFromCart}
+          confirmarPedido={confirmarPedido}
+        />
+      </div>
+    );
+}
+
+const medicamentsContainer = document.getElementById("medicaments");
+if (medicamentsContainer) {
+  ReactDOM.createRoot(medicamentsContainer).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
+
+const carritoDropContainer = document.getElementById("carritoDrop");
+if (carritoDropContainer) {
+  ReactDOM.createRoot(carritoDropContainer).render(
+    <React.StrictMode>
+      <MedicamentoList
+        carrito={carrito}
+        removeFromCart={removeFromCart}
+        confirmarPedido={confirmarPedido}
+      />
+    </React.StrictMode>
+  );
+}

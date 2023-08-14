@@ -14,3 +14,5 @@ import './bootstrap';
 
 //import './components/Example';
 import './components/Carrito';
+import './components/MedicamentoItem';
+import './components/MedicamentoList';
