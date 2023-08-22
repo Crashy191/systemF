@@ -15,7 +15,7 @@ class CreatePedidosTable extends Migration
 
             $table->string('direccion');
             $table->integer('telefono');
-            $table->string('informacion');
+            $table->string('informacion')->nullable();
          
             $table->enum('status',['En Proceso','Finalizado','Cancelado'])->default('En Proceso');
 

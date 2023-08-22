@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use App\Models\Category;
 use Illuminate\Http\Request;
-
 use App\Models\Medicamento;
 use App\Models\Venta;
 use Illuminate\Support\Str;
@@ -14,20 +12,38 @@ class MedicamentosController extends Controller
      */
     public function index()
     {
+        $categories=Category::all();
+
         $medicamentos=Medicamento::orderBy('id')->get();
-        return view('backend.medicamento.index',compact('medicamentos'));
+        return view('backend.medicamento.index',compact('medicamentos'),compact('categories'));
+           }
+    public function filter(Request $request)
+{ $categories=Category::all();
+    $query = Medicamento::query();
+
+
+
+    if ($request->has('categoria')) {
+        $query->where('cat_id', $request->categoria); // Asumiendo que el campo en la tabla es 'categoria_id'
     }
+
+
+    $medicamentos = $query->get();
+
+    return view('backend.medicamento.index', compact('medicamentos'), compact('categories'));
+}
+
     public function list()
     {
         try {
             $medicamentos = Medicamento::all();
             return response()->json($medicamentos);
-            
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al obtener los medicamentos'], 500);
         }
     }
-  
+
     public function confirmarCompra(Request $request) {
         try {
             $medicamentosCompra = $request->input('medicamentos');
@@ -64,15 +80,17 @@ class MedicamentosController extends Controller
             return response()->json(['error' => 'Error al registrar la compra'], 500);
         }
     }
-    
-    
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('backend.medicamento.create');
+        $categories=Category::all();
+
+        return view('backend.medicamento.create')->with('categories',$categories);
     }
 
 
@@ -88,6 +106,8 @@ class MedicamentosController extends Controller
                 'precio' => 'required|numeric',
                 'cantidad' => 'required|integer|min:0',
                 'lote' => 'required|string',
+                'cat_id'=>'required|exists:categories,id',
+
             ]);
 
             $data = $request->all();
@@ -171,9 +191,13 @@ class MedicamentosController extends Controller
      */
     public function edit(string $id)
     {
+        $categories=Category::all();
         $medicamentos = Medicamento::findOrFail($id);
-        return view('backend.medicamento.edit', compact('medicamentos'));
 
+        return view('backend.medicamento.edit', [
+            'medicamentos' => $medicamentos,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -189,6 +213,7 @@ class MedicamentosController extends Controller
             'fecha_vencimiento' => 'required|date',
             'status' => 'required|in:active,inactive',
             'registro_invima' => 'required|string|max:255',
+            'cat_id'=>'required|exists:categories,id',
 
             'precio' => 'required|numeric',
             'cantidad' => 'required|integer|min:0',

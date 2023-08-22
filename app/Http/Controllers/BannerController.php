@@ -42,13 +42,13 @@ class BannerController extends Controller
 
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
-            $imagePath = '';
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path($imagePath), $imageName);
-            $data = ['image_path' => $imagePath . $imageName];
+
+            $image->move(public_path('images/banners'), $imageName);
+            $data['image_path'] = $imageName;
         }
 
-        $data = ['image_path' => $imagePath . $imageName];
+
 
         $status = Banner::create($data);
 

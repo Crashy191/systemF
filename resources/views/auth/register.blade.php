@@ -61,6 +61,14 @@
                             </div>
                         </div>
 
+                        <div class="row my-3 ">
+                       
+                           
+                            <label for="password-confirm" class=" col d-flex justify-content-center"> <input type="checkbox" id="terminos" name="terminos" class="mx-2" required>    Acepto los términos y condiciones</label>
+
+
+                        </div>
+                      
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

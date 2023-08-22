@@ -18,10 +18,10 @@
                     <div class="col-xl-4 col-sm-6 mx-auto col-md-4 single-footer-widget">
                         <h4>Acceso Rapido</h4>
                         <ul>
-                            <li><a href="#">Acerca de Nosotros</a></li>
-                            <li><a href="#">Medicamentos</a></li>
+                            <li><a href="{{ route('about') }}">Acerca de Nosotros</a></li>
+                            <li><a href="{{ route('medicine') }}">Medicamentos</a></li>
                             <li><a href="#"> Redes</a></li>
-                            <li><a href="#">Contactanos</a></li>
+                            <li><a href="{{ route('contact') }}">Contactanos</a></li>
                         </ul>
                     </div>
                     
@@ -53,5 +53,6 @@
     <script src="{{ asset('frontend/js/contact.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 

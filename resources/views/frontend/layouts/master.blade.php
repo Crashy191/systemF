@@ -7,7 +7,9 @@
   <!-- Navbar -->
   @include('frontend.layouts.header')
   <!-- /.navbar -->
-
+  <!-- Navbar -->
+  @include('frontend.layouts.nav')
+  <!-- /.navbar -->
 
     <!-- Main content -->
     @yield('content')

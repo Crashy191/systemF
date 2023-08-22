@@ -10,9 +10,9 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('medicamento.update', $medicamentos->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('medicamentos.update', $medicamentos->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                  @method('PATCH')
+                            @method('PATCH')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
@@ -59,6 +59,16 @@
                                     <input type="number" class="form-control" id="precio" name="precio" value="{{ $medicamentos->precio }}" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="cat_id">Category <span class="text-danger">*</span></label>
+                                <select name="cat_id" id="cat_id" class="form-control">
+                                    <option value="">--Select any category--</option>
+                                    @foreach($categories as $key=>$cat_data)
+                                        <option value='{{$cat_data->id}}' {{(($medicamentos->cat_id==$cat_data->id)? 'selected' : '')}}>{{$cat_data->title}}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>

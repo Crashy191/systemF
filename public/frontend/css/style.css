@@ -2288,13 +2288,22 @@ ul {
   top: 0;
   width: 100%;
   z-index: 999;
+  box-shadow: 0px 20px 25px rgba(0, 0, 0, 0.05);
 }
 
 /* line 11, ../../01 cl html template/03_jun 2019/182_medico_html/sass/_menu.scss */
 .main_menu .navbar-brand {
   padding: 0rem !important;
 }
-
+.carrito_letra{
+  font-size: small;
+}
+.input_tamaño{
+  width: 1.8rem;
+}
+.btn_tamaño{
+  font-size: .3rem;
+}
 @media (max-width: 576px) {
   /* line 11, ../../01 cl html template/03_jun 2019/182_medico_html/sass/_menu.scss */
   .main_menu .navbar-brand {
