@@ -8,7 +8,7 @@
     }
 
     .profile-card {
-    
+
         padding: 20px;
         margin-bottom: 20px;
         display: flex;
@@ -77,15 +77,13 @@
     }
 </style>
 
-<div class="col-lg-12">
-    @include('backend/layouts/notificacion')
-</div>
+
 
 @auth
 
-  
 
-    
+
+
     <div class="row my-5">
         <div class="col-md-7   px-4 profile-card">
             <div class="row mx-5 border-right d-flex justify-content-center align-items-center">
@@ -95,6 +93,8 @@
                 <div class=" col ">
                     <h5>Nombre Completo: {{ Auth()->user()->name }}</h5>
                     <p>Correo Electronico: {{ Auth()->user()->email }}</p>
+                    <p>Teléfono: {{ Auth()->user()->phone }}</p>
+                    <p>Dirección: {{ Auth()->user()->address }}</p>
                 </div>
             </div>
             <div class="row py-5 my-5 mx-4">
@@ -107,8 +107,10 @@
                 </ul>
             </div>
         </div>
+
+
         <div class="col-md-5 p-3  my-5 d-flex border-left justify-content-center align-items-center">
-    
+
             <div id="perfilMenu" class="profile-menu">
                 <div class="card">
                     <div class="card-header">
@@ -140,20 +142,69 @@
                     </div>
                 </div>
             </div>
-    
+
+            @if(session('success'))
+            <div class="row">
+                <div class="col-md-7 mx-auto">
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                </div>
+            </div>
+            @endif
+            @if($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+            </div>
+            @endif
             <div id="passwordMenu" class="profile-menu">
                 <h6>Cambiar Contraseña</h6>
-                <form>
-                    <!-- Formulario para cambiar contraseña -->
+
+                <form method="POST" action="{{ route('change.password') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="current_password">Contraseña Actual</label>
+                        <input type="password" name="current_password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">Nueva Contraseña</label>
+                        <input type="password" name="new_password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password_confirmation">Confirmar Nueva Contraseña</label>
+                        <input type="password" name="new_password_confirmation" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
                 </form>
             </div>
-    
-            <div id="configMenu" class="profile-menu">
-                <h4><b>Perfil del Usuario</b></h4>
-                <p>Nombre: {{ Auth()->user()->name }}</p>
-                <p>Correo electrónico: {{ Auth()->user()->email }}</p>
-            </div>
-    
+
+
+
+<div id="configMenu" class="profile-menu">
+    <h4><b>Configuración de la Cuenta</b></h4>
+    <form method="POST" action="{{ route('update.profile') }}">
+        @csrf
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" class="form-control" value="{{ Auth()->user()->name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" name="email" class="form-control" value="{{ Auth()->user()->email }}" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="text" name="phone" class="form-control" value="{{ Auth()->user()->phone }}">
+        </div>
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" name="address" class="form-control" value="{{ Auth()->user()->address }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+</div>
+
+
+
+
             <div id="logoutMenu" class="profile-menu">
                 <h4 class="d-flex justify-content-center">Cerrar Sesión</h4>
                 <p>¿Estás seguro de que deseas cerrar sesión?</p>
@@ -164,10 +215,10 @@
             </div>
         </div>
     </div>
-   
+
 
     <div class="row">
-      
+
     </div>
 
 

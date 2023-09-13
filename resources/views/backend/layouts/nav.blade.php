@@ -152,3 +152,16 @@
 
     </ul>
   </nav>
+<!-- En el footer de tu layout -->
+<script>
+    $(document).ready(function() {
+        // Activa el colapso del menú de la barra lateral
+        $('[data-widget="treeview"]').Treeview('init');
+
+        // Controla el colapso del menú cuando se hace clic en los elementos con la clase 'nav-link'
+        $('.nav-link').on('click', function(e) {
+            e.preventDefault();
+            $(this).next('.nav-treeview').slideToggle();
+        });
+    });
+</script>

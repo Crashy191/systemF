@@ -39,7 +39,7 @@
                         <h1>Droguería La Economía</h1>
                         <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un
                             servicio excepcional. Cuidamos de ti y tu familia.</p>
-                        <a href="#" class="btn_2">Comprar medicamentos</a>
+                        <a href="{{ route('medicine') }}" class="btn_2">Comprar medicamentos</a>
                     </div>
                 </div>
             </div>
@@ -91,36 +91,42 @@
 
             <div class="row">
                 <div id="medicaments"></div>
+                <?php  $count = 0; ?>
                 @foreach ($medicamentos as $medicamento)
-                    <div class="col-sm-6 col-lg-3  d-flex justify-content-center ">
-                        <div class="single_blog_item">
-                            <div class="single_blog_img">
-                                @if ($medicamento->imagen)
-                                    <img src="{{ asset('images/' . $medicamento->imagen) }}" class="medicamento-img"
-                                        alt="Imagen del Medicamento">
-                                @else
-                                    <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="medicamento-img"
-                                        alt="Imagen por Defecto">
-                                @endif
-
-                            </div>
-                            <div class="single_text ">
-                                <div class="single_blog_text">
-                                    <h3>{{ $medicamento->nombre }}</h3>
-                                    <p class="precio my-3">Precio: {{ $medicamento->precio }} $</p>
-
-                                    <div class="col d-flex justify-content-center">
-                                        <button class="btn btn-agregar-carrito " data-medicamento-id="{{ $medicamento->id }}">
-                                            <i class="ti-shopping-cart"></i> Agregar al carrito
-                                        </button>
-                                    </div>
-                                   
-                                    
-                                </div>
-                            </div>
+              
+                @if ($count < 4)
+                <div class="col-sm-6 col-lg-3  d-flex justify-content-center ">
+                    <div class="single_blog_item">
+                        <div class="single_blog_img">
+                            @if ($medicamento->imagen)
+                                <img src="{{ asset('images/' . $medicamento->imagen) }}" class="medicamento-img"
+                                    alt="Imagen del Medicamento">
+                            @else
+                                <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="medicamento-img"
+                                    alt="Imagen por Defecto">
+                            @endif
 
                         </div>
+                        <div class="single_text ">
+                            <div class="single_blog_text">
+                                <h3>{{ $medicamento->nombre }}</h3>
+                                <p class="precio my-3">Precio: {{ $medicamento->precio }} $</p>
+
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-agregar-carrito " data-medicamento-id="{{ $medicamento->id }}">
+                                        <i class="ti-shopping-cart"></i> Agregar al carrito
+                                    </button>
+                                </div>
+                               
+                                
+                            </div>
+                        </div>
+
                     </div>
+                </div>
+             
+                @endif
+                <?php  $count = $count + 1; ?>
                 @endforeach
             </div>
 
@@ -140,7 +146,7 @@
                             <h1>Droguería La Economía</h1>
                             <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un
                                 servicio excepcional. Cuidamos de ti y tu familia.</p>
-                            <a href="#" class="btn_2">Comprar medicamentos</a>
+                            <a href="{{ route('medicine') }}" class="btn_2">Comprar medicamentos</a>
 
                         </div>
                     </div>

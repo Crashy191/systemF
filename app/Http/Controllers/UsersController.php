@@ -36,35 +36,38 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,
-        [
-            'name'=>'string|required|max:30',
-            'email'=>'string|required|unique:users',
-            'password'=>'string|required',
-               'status'=>'required|in:active,inactive',
-
+        $this->validate($request, [
+            'name' => 'string|required|max:30',
+            'email' => 'string|required|unique:users',
+            'password' => 'string|required',
+            'phone' => 'nullable|string', // Campo de teléfono
+            'address' => 'nullable|string', // Campo de dirección
+            'status' => 'required|in:active,inactive',
         ]);
-        // dd($request->all());
-        $data=$request->all();
-        $data['password']=Hash::make($request->password);
-         $data['role'] = 'customer'; // Establecer el rol de usuario como predeterminado
-        $data['email_verified_at'] = now(); // Establecer la fecha actual como fecha de verificación del correo
-        $data['remember_token'] = ''; // No es necesario establecer el token aquí, se generará automáticamente
-        $data['created_at'] = now(); // Establecer la fecha actual como fecha de creación
-        $data['updated_at'] = now(); // Establecer la fecha actual como fecha de actualización
 
-        // dd($data);
-        $status=User::create($data);
-        // dd($status);
-        if($status){
-            request()->session()->flash('success','Successfully added user');
+        $data = $request->all();
+        $data['password'] = Hash::make($request->password);
+        $data['role'] = 'customer';
+        $data['email_verified_at'] = now();
+        $data['remember_token'] = '';
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+
+
+        $data['phone'] = $request->input('phone');
+        $data['address'] = $request->input('address');
+
+        $status = User::create($data);
+
+        if ($status) {
+            request()->session()->flash('success', 'Usuario agregado exitosamente');
+        } else {
+            request()->session()->flash('error', 'Ocurrió un error al agregar el usuario');
         }
-        else{
-            request()->session()->flash('error','Error occurred while adding user');
-        }
+
         return redirect()->route('users.index');
-
     }
+
 
     /**
      * Display the specified resource.
@@ -98,34 +101,40 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::findOrFail($id);
-        $this->validate($request,
-        [
-            'name'=>'string|required|max:30',
-            'email'=>'string|required',
-            'password'=>'string|required',
-              'status'=>'required|in:active,inactive'
+        $user = User::findOrFail($id);
 
+        $this->validate($request, [
+            'name' => 'string|required|max:30',
+            'email' => 'string|required',
+            'password' => 'string|required',
+            'phone' => 'nullable|string', // Campo de teléfono
+            'address' => 'nullable|string', // Campo de dirección
+            'status' => 'required|in:active,inactive'
         ]);
-        // dd($request->all());
-        $data=$request->all();
-         $data['password']=Hash::make($request->password);
-         $data['role'] = 'customer'; // Establecer el rol de usuario como predeterminado
-        $data['email_verified_at'] = now(); // Establecer la fecha actual como fecha de verificación del correo
-        $data['remember_token'] = ''; // No es necesario establecer el token aquí, se generará automáticamente
-        $data['created_at'] = now(); // Establecer la fecha actual como fecha de creación
-        $data['updated_at'] = now(); // Establecer la fecha actual como fecha de actualización
 
-        $status=$user->fill($data)->save();
-        if($status){
-            request()->session()->flash('success','Successfully updated');
+        $data = $request->all();
+        $data['password'] = Hash::make($request->password);
+        $data['role'] = 'customer';
+        $data['email_verified_at'] = now();
+        $data['remember_token'] = '';
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+
+        // Agregar los campos de teléfono y dirección al arreglo de datos
+        $data['phone'] = $request->input('phone');
+        $data['address'] = $request->input('address');
+
+        $status = $user->fill($data)->save();
+
+        if ($status) {
+            request()->session()->flash('success', 'Actualizado exitosamente');
+        } else {
+            request()->session()->flash('error', 'Ocurrió un error al actualizar');
         }
-        else{
-            request()->session()->flash('error','Error occured while updating');
-        }
+
         return redirect()->route('users.index');
-
     }
+
 
     /**
      * Remove the specified resource from storage.

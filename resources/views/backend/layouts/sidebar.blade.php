@@ -30,7 +30,7 @@
                 <a href="{{ route('facturas.index') }}" class="nav-link">
                     <i class="nav-icon fas fa-file-invoice"></i>
                     <p>Facturación</p>
-                    
+
                 </a>
             </li>
 
@@ -150,4 +150,7 @@
     </nav>
     <!-- /.sidebar-menu -->
 </div>
+
+
+
 

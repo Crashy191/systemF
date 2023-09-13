@@ -23,7 +23,14 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('hom
 
 
 
+
+
+Route::post('change-password', [HomeController::class, 'changePassword'])->name('change.password');
+
+
 Auth::routes(['register'=>false]);
+Route::post('update-profile', [HomeController::class, 'updateProfile'])->name('update.profile');
+
 Route::get('user/login', 'HomeController@login')->name('login.form');
 Route::post('user/login', 'HomeController@loginSubmit')->name('login.submit');
 Route::get('user/logout', 'HomeController@logout')->name('user.logout');

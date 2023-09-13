@@ -53,6 +53,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'max:20'], // Agregar reglas de validación para el teléfono
+            'address' => ['required', 'string', 'max:255'], // Agregar reglas de validación para la dirección
         ]);
     }
 
@@ -62,12 +64,17 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'], // Agregar el campo de teléfono
+            'address' => $data['address'], // Agregar el campo de dirección
         ]);
     }
 }
+
+

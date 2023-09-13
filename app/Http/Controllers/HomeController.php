@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash; // Asegúrate de importar la clase Hash
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
+
 class HomeController extends Controller
 {
     /**
@@ -35,14 +36,16 @@ class HomeController extends Controller
         return redirect()->route($request->user()->role);
 
          }
+
          public function home(){
             $banners = Banner::orderBy('id')->get();
             $medicamentos = Medicamento::where('status', 'active')->orderBy('id')->get();
-    
-    
+
+
             return view('frontend.index')->with('medicamentos',$medicamentos)->with('banners', $banners);;
-    
+
     }
+
 public function inicio()
 {
     $banners = Banner::orderBy('id')->get();
@@ -82,22 +85,40 @@ public function contact(){
 }
 public function login(){
     if (Auth::check()) {
-        return redirect()->route('inicio'); 
+        return redirect()->route('inicio');
     }
     return view('frontend.pages.login');
 }
-public function loginSubmit(Request $request){
-    $data= $request->all();
-    if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'],'status'=>'active'])){
-        Session::put('user',$data['email']);
-        request()->session()->flash('success','Successfully login');
-        return redirect()->route('inicio');
+
+
+
+
+
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user(); // Obtener el usuario autenticado
+
+        // Validar los datos del formulario de cambio de contraseña
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+        ]);
+
+        // Verificar que la contraseña actual sea correcta
+        if (Hash::check($request->current_password, $user->password)) {
+            // Cambiar la contraseña
+            $user->update([
+                'password' => Hash::make($request->new_password),
+            ]);
+
+            return redirect()->back()->with('success', 'Contraseña cambiada exitosamente.');
+        } else {
+            return redirect()->back()->withErrors(['current_password' => 'La contraseña actual es incorrecta.']);
+        }
     }
-    else{
-        request()->session()->flash('error','Invalid email and password pleas try again!');
-        return redirect()->back();
-    }
-}
+
+
+
 
 public function logout(){
     Session::forget('user');
@@ -108,10 +129,24 @@ public function logout(){
 
 public function register(){
     if (Auth::check()) {
-        return redirect()->route('inicio'); 
+        return redirect()->route('inicio');
     }
     return view('auth.register');
 }
+public function updateProfile(Request $request)
+{
+    $user = Auth::user();
+
+    $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+    ]);
+
+    return redirect()->back()->with('success', 'Perfil actualizado exitosamente.');
+}
+
 // HomeController.php
 
 public function registerSubmit(Request $request)
@@ -128,6 +163,8 @@ public function registerSubmit(Request $request)
         'name' => $request->name,
         'email' => $request->email,
         'password' => $request->password,
+        'phone' => $request->phone,
+        'address' => $request->address,
     ]);
 
     // Autenticar al usuario después de registrarse
@@ -144,9 +181,9 @@ public function registerSubmit(Request $request)
 }
 public function mail()
 {
-    
+
    return new RegistroUsuario("Carrion");
-  
+
 }
 // Resto de métodos en el controlador...
 
@@ -155,6 +192,8 @@ public function create(array $data){
         'name'=>$data['name'],
         'email'=>$data['email'],
         'password'=>Hash::make($data['password']),
+        'phone' =>$data['phone'],
+        'address' =>$data['address'],
         'status'=>'active'
         ]);
 }

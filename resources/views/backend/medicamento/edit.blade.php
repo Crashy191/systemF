@@ -60,9 +60,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="cat_id">Category <span class="text-danger">*</span></label>
+                                <label for="cat_id">Categoria <span class="text-danger">*</span></label>
                                 <select name="cat_id" id="cat_id" class="form-control">
-                                    <option value="">--Select any category--</option>
+                                    <option value="">--Seleccione una categoria--</option>
                                     @foreach($categories as $key=>$cat_data)
                                         <option value='{{$cat_data->id}}' {{(($medicamentos->cat_id==$cat_data->id)? 'selected' : '')}}>{{$cat_data->title}}</option>
                                     @endforeach

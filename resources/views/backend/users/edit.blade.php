@@ -34,6 +34,14 @@
                                         <small class="text-muted">Deja este campo en blanco si no deseas cambiar la contraseña.</small>
                                     </div>
                                     <div class="form-group">
+                                        <label for="phone">Teléfono</label>
+                                        <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Dirección</label>
+                                        <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $user->address) }}">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="status">Estado</label>
                                         <select name="status" id="status" class="form-control" required>
                                             <option value="active" {{ old('status', $user->status) === 'active' ? 'selected' : '' }}>Activo</option>
