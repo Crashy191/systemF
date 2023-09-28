@@ -44,10 +44,13 @@
                                             <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Cambiar contraseña
                                         </a>
-                                        <a class="dropdown-item" href="{{ route('profile') }}">
+                                        @if (Auth()->user()->role == 'admin')
+                                        <a class="dropdown-item" href="{{ route('admin') }}" target="_blank">
                                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Configurar cuenta
+                                            Panel de Admin
                                         </a>
+                                        @endif
+                                       
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -152,6 +155,8 @@
 <!-- Botón para abrir el modal -->
 <!-- Button trigger modal -->
 
+
+
 @auth
     <!-- Modal para confirmar el pedido -->
     <div class="modal fade" id="confirmarPedidoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -208,7 +213,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" id="enviarPedidoBtn">Enviar Pedido</button>
+                        <button type="submit" class="btn btn-primary"  id="enviarPedidoBtn">Enviar Pedido</button>
                     </div>
                     </form>
 
@@ -216,15 +221,7 @@
         </div>
     </div>
 @endauth
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 <script type="module" src="{{ asset('frontend/js/carrito.js') }}"></script>
-<script>
-
-
-// Evitar que el menú se cierre al quitar el mouse
-document.getElementById('carritoDrop').addEventListener('mouseleave', function(e) {
-    e.stopPropagation();
-});
-
-
-</script>

@@ -43,6 +43,16 @@ input:hover, input:focus {
   object-fit: cover;
   /* Asegura que la imagen cubra el contenedor */
 }
+.category-scroll {
+  max-height: 1000px; /* Ajusta esta altura según tus preferencias */
+  height: 50%;
+  overflow-y: auto;
+}
+.medicamento-img-es {
+  width: 100px; /* Ancho fijo */
+  height: 100px; /* Alto fijo */
+  object-fit: cover; /* Para recortar las imágenes si no tienen la misma relación de aspecto */
+}
 .color-s:hover{
   background-color: #ff6637;
 }

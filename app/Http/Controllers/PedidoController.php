@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use App\Models\Medicamento;
 use Illuminate\Http\Request;
+use MercadoPago\Preference; // Importa la clase MercadoPago\Preference
+
 
 class PedidoController extends Controller
 {
@@ -46,6 +48,9 @@ class PedidoController extends Controller
                 $productosResumidos[] = "{$producto->nombre} - Cantidad: {$medicamento['cantidad']}";
             }
         }
+
+
+
         $data = [
             'nombre' => $request->input('nombre'),
             'email' => $request->input('email'),
@@ -54,7 +59,7 @@ class PedidoController extends Controller
             'informacion' => $request->input('informacion_adicional'),
             'total' => $totalPedido,
             'productos' =>  implode(', ', $productosResumidos), // Esto debería asignar un valor al campo 'productos'
-            'status' => 'En Proceso'
+            'status' => 'Pendiente'
         ];
     
         $pedido = new Pedido(); // Crear una nueva instancia de Pedido
@@ -70,8 +75,12 @@ class PedidoController extends Controller
         $pedido->save(); // Guardar el pedido en la base de datos
     
         if ($pedido) {
-            request()->session()->flash('success', 'Venta Realizada con Éxito');
-            return redirect()->route('profile');
+     
+            return view('frontend.checkout', [
+                'carrito' => $carrito,  
+                'totalPedido' => $totalPedido,
+                'pedidoId' => $pedido->id,
+            ]);
         } else {
             request()->session()->flash('error', 'Ha ocurrido un error mientras intentaba realizar la Venta');
         }
@@ -80,6 +89,47 @@ class PedidoController extends Controller
     }
     
 
+    public function update_paid_status(Request $request){
+
+
+        $pedido_id = $request->route('pedido_id'); 
+
+        echo "pedido_id: " . $pedido_id;
+    
+        var_dump($request->all());
+        echo ("Estado: ".$request['status']. " - ID: ".$request['payment_id']);
+    
+        // Añade un mensaje de depuración para verificar el pedido_id antes de buscarlo
+        echo "Buscando pedido con ID: " . $pedido_id;
+        $status = $request['status']; // Quita las comillas dobles si están presentes
+        $payment_id = $request['payment_id'];
+
+        if ($status == 'approved' || $status == 'failure' ) {
+            try {
+                $pedido = Pedido::findOrFail($pedido_id);
+                $pedido->update([
+                    'paid_status' => $status,
+                    'paid_id' => $payment_id,
+                    'status' => 'En Proceso',
+                ]);
+                $texto = $status == 'approved' ? 'Aprobado, en proceso de envio' : 'Ha fallado el pago';
+                if($status == 'approved'){
+                    return redirect()->route('profile')->with('success', 'Estado de pago:' . ' ' . $texto);
+                }else{
+                    return redirect()->route('profile')->with('success', 'Estado de pago:'.' '.$texto);
+                }
+              
+            } catch (\Exception $e) {
+                print("Error  " . $e->getMessage());
+            }
+        } else {
+            return redirect()->route('profile')->with('error', 'No se pudo procesar.');
+
+        }
+
+
+   
+    }
 
 
     public function create()
@@ -157,6 +207,29 @@ class PedidoController extends Controller
 
         return redirect()->route('pedidos.index')->with('success', 'Pedido actualizado correctamente.');
     }
+
+    public function update_status(Request $request)
+    
+    {        
+        try{
+        
+
+            
+         
+            $pedido_id = $request->route('id'); 
+           
+    
+           $pedido = Pedido::findOrFail($pedido_id);
+             $pedido->update([
+                  'status' => $request->nuevoEstado,
+             ]);
+        }catch(error){
+
+        }
+        
+      return redirect()->route('pedidos.index')->with('success', 'Pedido actualizado correctamente.');
+    }
+
     public function destroy($id)
     {
         $pedido = Pedido::findOrFail($id);

@@ -4,11 +4,13 @@
 
 <!-- banner part start-->
 @if(count(@$banners) > 0)
-<section class="banner_part" style="position: relative; overflow: hidden;">
-
+<section class="banner_part">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-5 col-xl-5">
+
+            
+
+            <div class="col-lg-5">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         @foreach ($banners as $index => $banner)
@@ -33,13 +35,12 @@
                 </div>
             </div>
             <div class="col-lg-7">
-                <div class="banner_text" style="position: relative; z-index: 1; background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
+                <div class="banner_text">
                     <div class="banner_text_iner">
                         <h5>Tu salud es nuestra prioridad</h5>
                         <h1>Droguería La Economía</h1>
-                        <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un
-                            servicio excepcional. Cuidamos de ti y tu familia.</p>
-                        <a href="{{ route('medicine') }}" class="btn_2">Comprar medicamentos</a>
+                        <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un servicio excepcional. Cuidamos de ti y tu familia.</p>
+                        <a href="{{ route('medicine') }}" class="btn btn_2">Comprar medicamentos</a>
                     </div>
                 </div>
             </div>
@@ -47,33 +48,14 @@
     </div>
 </section>
 @endif
-<!-- banner part end-->
 
 <style>
     .banner_part {
-        position: relative;
-        overflow: hidden;
-        padding: 50px 0; /* Ajusta este valor para controlar el espacio vertical entre el carrusel y el texto */
-        margin-top: -200px; /* Ajusta este valor para controlar la distancia entre el banner y el nav */
-    }
-
-    .banner_text {
-        position: relative;
-        z-index: 1;
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        margin-top: -80px; /* Ajusta este valor para alinear el texto con la imagen del carrusel */
-    }
-
-    /* Añadir margen inferior a la imagen del carrusel */
-    .carousel-inner .carousel-item img {
-        margin-bottom: -30px; /* Ajusta este valor para subir o bajar la imagen */
-    }
-
-    .doctor_part {
-        padding-bottom: 300px; /* Ajusta este valor para controlar el espacio vertical inferior del doctor_part */
+        padding: 50px 0;
     }
 </style>
+
+
 
 
 
@@ -128,11 +110,13 @@
                 @endif
                 <?php  $count = $count + 1; ?>
                 @endforeach
+                <a href="{{ route('medicine') }}" class="btn_2 my-5">Ver mas medicamentos</a>
             </div>
 
 
     </section>
 
+    <div id="wallet_container"></div>
     <!--::doctor_part end::-->
     <!-- banner part start-->
     <section class="banner_part">

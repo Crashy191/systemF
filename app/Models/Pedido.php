@@ -9,7 +9,8 @@ class Pedido extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'medicamento_id', 'nombre_medicamento', 'precio_medicamento', 'nombre', 'direccion', 'cantidad', 'total'];
+        'id', 'nombre_medicamento', 'precio_medicamento', 'nombre', 'direccion', 'cantidad', 'total',   'paid_status', // Asegúrate de agregar estas columnas
+        'paid_id','status'];
 
 
         public function medicamentos()

@@ -67,11 +67,11 @@
                <td>{{ $medicamento->cantidad }}</td>
                <td>{{ $medicamento->precio }}</td>
                <td>
-                   <a href="{{ route('medicamento.edit', $medicamento->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                   <a href="{{ route('medicamento.edit', $medicamento->id) }}" class="btn btn-primary btn-sm float-left mr-1 my-1" style="height:30px; width:30px;border-radius:50%"><i class="fas fa-edit"></i></a>
                    <form action="{{ route('medicamento.destroy', $medicamento->id) }}" method="post" style="display: inline-block">
                        @csrf
                        @method('DELETE')
-                       <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este medicamento?')"><i class="fas fa-trash-alt"></i></button>
+                       <button type="submit" class="btn btn-danger btn-sm" style="height:30px; width:30px;border-radius:50%" onclick="return confirm('¿Estás seguro de eliminar este medicamento?')"><i class="fas fa-trash-alt"></i></button>
                    </form>
                </td>
              </tr>

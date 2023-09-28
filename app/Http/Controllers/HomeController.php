@@ -49,7 +49,7 @@ class HomeController extends Controller
 public function inicio()
 {
     $banners = Banner::orderBy('id')->get();
-    $medicamentos = Medicamento::where('status', 'active')->orderBy('id')->get();
+    $medicamentos = Medicamento::where('status', 'active')->where('cantidad', '<>', 0)->orderBy('id')->get();
 
     return view('frontend.index')->with('medicamentos', $medicamentos)->with('banners', $banners);
 }
@@ -72,7 +72,7 @@ public function category($id)
     return view('frontend.category', compact('category'));
 }
 public function medicine(){
-    $medicamentos = Medicamento::where('status', 'active')->orderBy('id')->get();
+    $medicamentos = Medicamento::where('status', 'active')->where('cantidad', '<>', 0)->orderBy('id')->get();
 
     $categories=Category::orderBy('id')->get();
     return view('frontend.medicine')->with('medicamentos',$medicamentos)->with('categories',$categories);
@@ -204,3 +204,4 @@ public function showResetForm(){
 
 
 }
+
