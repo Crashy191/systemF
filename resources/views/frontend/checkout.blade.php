@@ -18,7 +18,7 @@
   </style>
 </head>
 <body>
-  <section class="h-100 gradient-form" style="background-color: #eee;">
+  {{-- <section class="h-100 gradient-form" style="background-color: #eee;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-10">
@@ -71,7 +71,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> --}}
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -118,9 +118,9 @@
  
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
-    window.addEventListener("load", function () {
+ window.addEventListener("load", function () {
       const mp = new MercadoPago("{{ config('services.mercadopago.key') }}");
-  
+
       try {
           const bricksBuilder = mp.bricks();
           mp.bricks().create("wallet", "wallet_container", {
@@ -130,7 +130,8 @@
               },
           });
 
-     
+          // Redireccionar automáticamente después de cargar el botón
+          window.location.href = "{{ $preference->init_point }}"; // Cambia a $preference->init_point para producción
       } catch (error) {
           console.error('Error al cargar el botón de pago de MercadoPago:', error);
       }

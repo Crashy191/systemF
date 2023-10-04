@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['inicio', 'register','registerSubmit']);
+        $this->middleware('auth')->except(['inicio', 'register','registerSubmit','medicine', 'contact','about']);
     }
 
     /**
@@ -39,7 +39,7 @@ class HomeController extends Controller
 
          public function home(){
             $banners = Banner::orderBy('id')->get();
-            $medicamentos = Medicamento::where('status', 'active')->orderBy('id')->get();
+            $medicamentos = Medicamento::where('status', 'active')->orderBy('id', 'desc')->get();
 
 
             return view('frontend.index')->with('medicamentos',$medicamentos)->with('banners', $banners);;

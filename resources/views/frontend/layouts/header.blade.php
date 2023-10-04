@@ -64,8 +64,8 @@
                                     </div>
                                 @endauth
                                 @guest
-                                    <a class="btn btn-sm color-e" href="{{ route('login') }}">Para iniciar a comprar,
-                                        inicia sesion</a>
+                                    <a class="btn  color-e mx-2" href="{{ route('login') }}">
+                                        Iniciar Sesion</a>
 
                                 @endguest
 
@@ -105,7 +105,37 @@
                                 </li>
                             @endauth
                             @guest
+                            <li class="nav-item active">
+                                <div id="carrito" class="dropdown">
+                                    <button class="btn color-s dropdown-toggle" type="button" id="carritoDropdown"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ti-shopping-cart"> <span id="cartBadge" class="cart-badge">0</span></i> Mi Carrito
+                                    </button>
+                                    <div id="carritoDrop" class="dropdown-menu carritos" aria-labelledby="carritoDropdown"             aria-labelledby="carritoDropdown">
+                                        <div class="card mt-4 dropw">
+                                            <div class="card-header d-flex justify-content-center">
+                                                Carrito de Compras
+                                            </div>
+                                            <div class="card-body ">
+                                                <div id="carritoContent"></div>
+                                                <hr>
+                                                <div class="col d-flex justify-content-center">
+                                                    <div id="totalCarrito" class=""></div>
+                                                </div>
 
+
+                                                <div class="col d-flex justify-content-center"><button
+                                                        class="btn my-1 btn-danger btn-vaciar-carrito"><i
+                                                            class="fas fa-trash"></i> Vaciar Carrito</button></div>
+                                                <div class="col d-flex justify-content-center"> <a href="{{ route('login') }}" class="btn my-1 btn-success  "><i
+                                                            class="fas fa-check-circle"></i> Ir a Comprar</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
 
                             @endguest
                         </ul>

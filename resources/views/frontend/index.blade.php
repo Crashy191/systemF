@@ -4,13 +4,10 @@
 
 <!-- banner part start-->
 @if(count(@$banners) > 0)
-<section class="banner_part">
+<section class="banner_part d-none d-lg-block">
     <div class="container">
         <div class="row align-items-center">
-
-            
-
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-xl-5">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         @foreach ($banners as $index => $banner)
@@ -35,12 +32,13 @@
                 </div>
             </div>
             <div class="col-lg-7">
-                <div class="banner_text">
+                <div class="banner_text" style="position: relative; z-index: 1; background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
                     <div class="banner_text_iner">
                         <h5>Tu salud es nuestra prioridad</h5>
                         <h1>Droguería La Economía</h1>
-                        <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un servicio excepcional. Cuidamos de ti y tu familia.</p>
-                        <a href="{{ route('medicine') }}" class="btn btn_2">Comprar medicamentos</a>
+                        <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un
+                            servicio excepcional. Cuidamos de ti y tu familia.</p>
+                        <a href="#" class="btn_2">Comprar medicamentos</a>
                     </div>
                 </div>
             </div>
@@ -48,10 +46,40 @@
     </div>
 </section>
 @endif
+<!-- banner part end-->
 
 <style>
-    .banner_part {
-        padding: 50px 0;
+     @media (min-width: 768px) {
+        .banner_part {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 0; /* Ajusta este valor para controlar el espacio vertical entre el carrusel y el texto */
+            margin-top: -20px; /* Ajusta este valor para controlar la distancia entre el banner y el nav */
+        }
+
+        .banner_text {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin-top: -20px; /* Ajusta este valor para alinear el texto con la imagen del carrusel */
+        }
+
+        .carousel-inner .carousel-item img {
+            margin-bottom: -30px; /* Ajusta este valor para subir o bajar la imagen */
+        }
+
+
+    }
+    @media (min-width: 1200px) {
+        /* Estilos específicos para pantallas con un ancho máximo de 1000 px */
+        .banner_part {
+            margin-top: -200px; /* Elimina el margen superior entre el banner y el nav */
+        }
+        .section_padding {
+            padding-top: 50px ;
+            padding-bottom: 200px ;
+        }
     }
 </style>
 
@@ -92,9 +120,9 @@
                         <div class="single_text ">
                             <div class="single_blog_text">
                                 <h3>{{ $medicamento->nombre }}</h3>
-                                <p class="precio my-3">Precio: {{ $medicamento->precio }} $</p>
+                                <p class="precio my-2">Precio: {{ $medicamento->precio }} $</p>
 
-                                <div class="col d-flex justify-content-center">
+                                <div class="col d-flex justify-content-center ">
                                     <button class="btn btn-agregar-carrito " data-medicamento-id="{{ $medicamento->id }}">
                                         <i class="ti-shopping-cart"></i> Agregar al carrito
                                     </button>

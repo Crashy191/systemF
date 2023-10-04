@@ -8,14 +8,14 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{$totalOrders}}</h3>
 
-              <p>Nuevas Ordenes</p>
+              <p>Nuevas Ordenes Pendientes</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('pedidos.index') }}" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -23,7 +23,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>{{$salesPercentage}}<sup style="font-size: 20px">%</sup></h3>
 
               <p>Porcentaje de Ventas</p>
             </div>
@@ -38,14 +38,14 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{@$totalUsers}}</h3>
 
               <p>Usuarios Registrados</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('users.index') }}" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -53,14 +53,14 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
+              <h3>{{@$totalMedicaments}}</h3>
 
-              <p>Venta de Productos</p>
+              <p>Medicamentos Registrados</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('medicamento.index') }}" class="small-box-footer">Mas Informacion <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -75,13 +75,11 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i class="fas fa-chart-pie mr-1"></i>
-                Descuentos
+                Pedidos
               </h3>
               <div class="card-tools">
                 <ul class="nav nav-pills ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Tipo Area</a>
-                  </li>
+                 
                   <li class="nav-item">
                     <a class="nav-link" href="#sales-chart" data-toggle="tab">Tipo Donut</a>
                   </li>
@@ -91,11 +89,8 @@
             <div class="card-body">
               <div class="tab-content p-0">
                 <!-- Morris chart - Sales -->
-                <div class="chart tab-pane active" id="revenue-chart"
-                     style="position: relative; height: 300px;">
-                    <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                 </div>
-                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
+
+                <div class="chart tab-pane active" id="sales-chart" style="position: relative; height: 300px;">
                   <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
                 </div>
               </div>
@@ -104,7 +99,7 @@
           <!-- /.card -->
 
           <!-- DIRECT CHAT -->
-          <div class="card direct-chat direct-chat-primary">
+          {{-- <div class="card direct-chat direct-chat-primary">
             <div class="card-header">
               <h3 class="card-title">Chat Directo</h3>
 
@@ -302,7 +297,7 @@
               </form>
             </div>
             <!-- /.card-footer-->
-          </div>
+          </div> --}}
           <!--/.direct-chat -->
 
           <!-- TO DO List -->
@@ -310,23 +305,29 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i class="ion ion-clipboard mr-1"></i>
-               Lista de Tareas
+               Lista de Medicamentos en Bajo Stock
               </h3>
 
-              <div class="card-tools">
-                <ul class="pagination pagination-sm">
-                  <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                  <li class="page-item"><a href="#" class="page-link">1</a></li>
-                  <li class="page-item"><a href="#" class="page-link">2</a></li>
-                  <li class="page-item"><a href="#" class="page-link">3</a></li>
-                  <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                </ul>
-              </div>
+          
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <ul class="todo-list" data-widget="todo-list">
+
+                @foreach($medicamentosBajosStock as $medicamento)
                 <li>
+                  <a href="{{route('medicamento.index')}}">  <img src="{{ asset('images/' . $medicamento->imagen) }}" alt="Imagen Medicamento" class="img-thumbnail" style="width: 30px; height: 30px; margin-right: 10px;"></a>
+
+                    <!-- Tu lógica para mostrar cada medicamento -->
+                    <span class="text" style="color: red;"> {{ $medicamento->nombre }} - Stock: {{ $medicamento->cantidad }}</span>
+                    <div class="tools">
+                        <!-- Otras herramientas como editar o eliminar -->
+                        {{-- <i class="fas fa-external-link-alt"></i>
+                        <i class="fas fa-trash-o"></i> --}}
+                    </div>
+                </li>
+            @endforeach
+                {{-- <li>
                   <!-- drag handle -->
                   <span class="handle">
                     <i class="fas fa-ellipsis-v"></i>
@@ -346,93 +347,12 @@
                     <i class="fas fa-edit"></i>
                     <i class="fas fa-trash-o"></i>
                   </div>
-                </li>
-                <li>
-                  <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                  </span>
-                  <div  class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                    <label for="todoCheck2"></label>
-                  </div>
-                  <span class="text">Pagar a los proveedores</span>
-                  <small class="badge badge-info"><i class="far fa-clock"></i> 4 horas</small>
-                  <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                  <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                  </span>
-                  <div  class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                    <label for="todoCheck3"></label>
-                  </div>
-                  <span class="text">Retroalimentación de Clientes</span>
-                  <small class="badge badge-warning"><i class="far fa-clock"></i> 1 dia</small>
-                  <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                  <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                  </span>
-                  <div  class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                    <label for="todoCheck4"></label>
-                  </div>
-                  <span class="text">Mantenimiento General  de los Servicios Web</span>
-                  <small class="badge badge-success"><i class="far fa-clock"></i> 3 dias</small>
-                  <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                  <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                  </span>
-                  <div  class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                    <label for="todoCheck5"></label>
-                  </div>
-                  <span class="text">Chequear  mensajes y notifcaciones</span>
-                  <small class="badge badge-primary"><i class="far fa-clock"></i> 1 semana</small>
-                  <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                  <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                  </span>
-                  <div  class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                    <label for="todoCheck6"></label>
-                  </div>
-                  <span class="text">Designar reponsabilidades de administracion</span>
-                  <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 mes</small>
-                  <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                  </div>
-                </li>
+                </li> --}}
+                
               </ul>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer clearfix">
-              <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Añadir tarea</button>
-            </div>
+       
           </div>
           <!-- /.card -->
         </section>
@@ -488,32 +408,7 @@
               <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer bg-transparent">
-              <div class="row">
-                <div class="col-4 text-center">
-                  <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
-
-                  <div class="text-white">Correo de Ordenes</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-4 text-center">
-                  <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
-
-                  <div class="text-white">En linea</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-4 text-center">
-                  <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
-
-                  <div class="text-white">En tienda</div>
-                </div>
-                <!-- ./col -->
-              </div>
-              <!-- /.row -->
-            </div>
+           
             <!-- /.card-footer -->
           </div>
           <!-- /.card -->
@@ -529,17 +424,7 @@
               <!-- tools card -->
               <div class="card-tools">
                 <!-- button with a dropdown -->
-                <div class="btn-group">
-                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-                    <i class="fas fa-bars"></i>
-                  </button>
-                  <div class="dropdown-menu" role="menu">
-                    <a href="#" class="dropdown-item">Añadir Evento</a>
-                    <a href="#" class="dropdown-item">Limpiar Eventos</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">Mirar Calendario</a>
-                  </div>
-                </div>
+             
                 <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
                   <i class="fas fa-minus"></i>
                 </button>
@@ -563,4 +448,5 @@
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
   </section>
+  
 @endsection

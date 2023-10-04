@@ -74,6 +74,8 @@ Route::group(['prefix'=>'admin/','middleware'=> ['auth', 'can:isAdmin']],functio
     Route::get('/medicamentos',[App\Http\Controllers\MedicamentosController::class, 'list']); // Obtener los medicamentos
     Route::post('/registrar-compra',[App\Http\Controllers\MedicamentosController::class, 'confirmarCompra']);
     Route::post('/filtrar',[App\Http\Controllers\MedicamentosController::class, 'filter'])->name('filtrar');
+    Route::get('/obtener-datos', [App\Http\Controllers\AdminController::class, 'obtenerDatosVentas']);
+    Route::get('/obtener-datosP', [App\Http\Controllers\AdminController::class, 'obtenerDatosPedidos']);
 
     Route::get('medicamento/{id}/edit', 'MedicamentosController@edit')->name('medicamento.edit');
 
