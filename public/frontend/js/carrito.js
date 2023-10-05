@@ -151,7 +151,7 @@ $(document).ready(function () {
         carrito.forEach(function (item) {
             carritoHtml += `
 <div class="col  carrito-item px-1 m-0 text-dark">
-<p class="carrito_letra">${item.nombre} - Cantidad: ${item.cantidad} <br> Precio: ${item.precio * item.cantidad} $ 
+<p class="carrito_letra">${item.nombre} - Cantidad: ${item.cantidad} <br> Precio: $  ${item.precio * item.cantidad} 
 <div class="col my-1 d-flex justify-content-end p-0">
 
 <button class="btn btn-success  mx-1 btn-sm btn-aumentar-cantidad  " data-medicamento-id="${item.id}">
@@ -174,8 +174,8 @@ $(document).ready(function () {
         $("#carritoContent").html(carritoHtml); // Cambio de id aquí
         $(".btn-vaciar-carrito").prop("disabled", carrito.length === 0);
         $(".btn-confirmar-pedido").prop("disabled", carrito.length === 0);
-        $("#totalCarrito").text("Total: " + total.toFixed(2) + " $");
-        $("#totalCarritoS").text("Total: " + total.toFixed(2) + " $");
+        $("#totalCarrito").text("Total:  $ " + total.toFixed(2) + "");
+        $("#totalCarritoS").text("Total: $" + total.toFixed(2) + " ");
         actualizarCarritoLocalStorage();
         $("#listaProductosCarrito").html(carritoHtml);
     }

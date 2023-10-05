@@ -44,7 +44,7 @@
                              @endif
                          </td>
                          <td>
-                             <a href="{{route('categories.edit',$category->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="editar" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                             <a href="{{route('categories.edit',$category->id)}}" class="btn btn-primary btn-sm float-left mr-1 my-2" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="editar" data-placement="bottom"><i class="fas fa-edit"></i></a>
                              <form method="POST" action="{{route('categories.destroy',[$category->id])}}">
                                  @csrf
                                  @method('delete')

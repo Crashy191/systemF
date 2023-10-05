@@ -66,7 +66,7 @@
                                                 <div class="full-text">
                                                     {{ $medicamento->nombre }}
                                                 </div>
-                                                <p class="precio my-3">Precio: {{ $medicamento->precio }} $</p>
+                                                <p class="precio my-3">Precio: $ {{ $medicamento->precio }} </p>
 
                                                 <div class="col d-flex justify-content-center">
                                                     <button class="btn btn-agregar-carrito "
@@ -120,7 +120,7 @@
                                 <div class="full-text">
                                     ${medicamento.nombre}
                                                 </div>
-                                <p class="precio my-3">Precio: ${medicamento.precio} $</p>
+                                <p class="precio my-3">Precio: $ ${medicamento.precio} </p>
 
                                 <div class="col d-flex justify-content-center">
                                     <button class="btn btn-agregar-carrito " data-medicamento-id="${medicamento.id}">

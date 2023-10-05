@@ -42,7 +42,7 @@
                                             <form action="{{ route('banner.destroy', $banner->id) }}" method="post" style="display: inline-block">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este medicamento?')">Eliminar</button>
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este medicamento?')"><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
                                     </tr>

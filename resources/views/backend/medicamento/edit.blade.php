@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="imagen">Imagen</label>
-                                    <input type="file" class="form-control" id="imagen" name="imagen">
+                                    <input type="file"  name="imagen">
                                     <img src="{{ asset('images/' . $medicamentos->imagen) }}" class="img-fluid mt-2" style="max-width: 200px;" alt="Medicamento Imagen">
                                 </div>
                                 <div class="form-group">

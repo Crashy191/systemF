@@ -64,7 +64,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('¿Estás seguro de eliminar este pedido?')">Eliminar</button>
+                                            onclick="return confirm('¿Estás seguro de eliminar este pedido?')"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 @endif
 
