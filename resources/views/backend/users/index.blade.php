@@ -42,11 +42,11 @@
                             <td>{{ $user->remember_token }}</td>
 
                             <td>
-                                <a href="{{route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Editar</a>
+                                <a href="{{route('users.edit', $user->id) }}" class="btn btn-primary btn-sm float-left mr-1 my-2" style="height:30px; width:30px;border-radius:50%"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('users.destroy', $user->id) }}" method="post" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" style="height:30px; width:30px;border-radius:50%"  onclick="return confirm('¿Estás seguro de eliminar este usuario?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
