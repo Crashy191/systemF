@@ -109,7 +109,7 @@
             </div>
 
 
-            <div class="col-md-5 p-3  my-5 d-flex border-left justify-content-center align-items-center">
+            <div class="col-md-12 p-3  my-5 d-flex border-left justify-content-center align-items-center">
 
                 <div id="perfilMenu" class="profile-menu">
                     <div class="card">

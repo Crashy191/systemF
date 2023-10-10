@@ -174,8 +174,8 @@ $(document).ready(function () {
         $("#carritoContent").html(carritoHtml); // Cambio de id aquí
         $(".btn-vaciar-carrito").prop("disabled", carrito.length === 0);
         $(".btn-confirmar-pedido").prop("disabled", carrito.length === 0);
-        $("#totalCarrito").text("Total:  $ " + total.toFixed(2) + "");
-        $("#totalCarritoS").text("Total: $" + total.toFixed(2) + " ");
+        $("#totalCarrito").text("Total:  $ " + total + "");
+        $("#totalCarritoS").text("Total: $" + total + " ");
         actualizarCarritoLocalStorage();
         $("#listaProductosCarrito").html(carritoHtml);
     }
