@@ -1,87 +1,117 @@
 @extends('frontend.layouts.master')
 @section('content')
-
-
-<!-- banner part start-->
-@if(count(@$banners) > 0)
-<section class="banner_part d-none d-lg-block">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-5 col-xl-5">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        @foreach ($banners as $index => $banner)
-                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></li>
-                        @endforeach
-                    </ol>
-                    <div class="carousel-inner">
-                        @foreach ($banners as $index => $banner)
-                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img class="d-block w-100" src="{{ asset('images/banners/' . $banner->image_path) }}" alt="Banner {{ $index + 1 }}">
+    <!-- banner part start-->
+    @if (count(@$banners) > 0)
+        <section class="banner_part  d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-xl-5">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                @foreach ($banners as $index => $banner)
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ $index }}"
+                                        class="{{ $index === 0 ? 'active' : '' }}"></li>
+                                @endforeach
+                            </ol>
+                            <div class="carousel-inner">
+                                @foreach ($banners as $index => $banner)
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                        <img class="d-block w-100"
+                                            src="{{ asset('images/banners/' . $banner->image_path) }}"
+                                            alt="Banner {{ $index + 1 }}">
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <div class="col-lg-7">
+                        <div class="banner_text"
+                            style="position: relative; z-index: 1; background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
+                            <div class="banner_text_iner">
+                                <h5>Tu salud es nuestra prioridad</h5>
+                                <h1>Droguería La Economía</h1>
+                                <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y
+                                    un
+                                    servicio excepcional. Cuidamos de ti y tu familia.</p>
+                                <a href="#" class="btn_2">Comprar medicamentos</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-7">
-                <div class="banner_text" style="position: relative; z-index: 1; background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
-                    <div class="banner_text_iner">
-                        <h5>Tu salud es nuestra prioridad</h5>
-                        <h1>Droguería La Economía</h1>
-                        <p>En Droguería La Economía, nos dedicamos a brindarte productos farmacéuticos de calidad y un
-                            servicio excepcional. Cuidamos de ti y tu familia.</p>
-                        <a href="#" class="btn_2">Comprar medicamentos</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-@endif
-<!-- banner part end-->
+        </section>
+    @endif
 
-<style>
-     @media (min-width: 768px) {
-        .banner_part {
-            position: relative;
-            overflow: hidden;
-            padding: 10px 0; /* Ajusta este valor para controlar el espacio vertical entre el carrusel y el texto */
-            margin-top: -20px; /* Ajusta este valor para controlar la distancia entre el banner y el nav */
+    <!-- banner part end-->
+
+    <style>
+        @media (min-width: 308px) {
+            .banner_part {
+                margin-top: 200px;
+                position: relative;
+                overflow: hidden;
+            }
         }
 
-        .banner_text {
-            position: relative;
-            z-index: 1;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            margin-top: -20px; /* Ajusta este valor para alinear el texto con la imagen del carrusel */
+        @media (min-width: 508px) {
+            .banner_part {
+                margin-top: 100px;
+                position: relative;
+                overflow: hidden;
+            }
         }
 
-        .carousel-inner .carousel-item img {
-            margin-bottom: -30px; /* Ajusta este valor para subir o bajar la imagen */
-        }
+        @media (min-width: 768px) {
+            .banner_part {
+                position: relative;
+                overflow: hidden;
+                padding: 10px 0;
+                /* Ajusta este valor para controlar el espacio vertical entre el carrusel y el texto */
+                margin-top: 100px;
+                /* Ajusta este valor para controlar la distancia entre el banner y el nav */
+            }
+
+            .banner_text {
+                position: relative;
+                z-index: 1;
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                margin-top: -20px;
+                /* Ajusta este valor para alinear el texto con la imagen del carrusel */
+            }
+
+            .carousel-inner .carousel-item img {
+                margin-bottom: -30px;
+                /* Ajusta este valor para subir o bajar la imagen */
+            }
 
 
-    }
-    @media (min-width: 1200px) {
-        /* Estilos específicos para pantallas con un ancho máximo de 1000 px */
-        .banner_part {
-            margin-top: -200px; /* Elimina el margen superior entre el banner y el nav */
         }
-        .section_padding {
-            padding-top: 50px ;
-            padding-bottom: 200px ;
+
+        @media (min-width: 1200px) {
+
+            /* Estilos específicos para pantallas con un ancho máximo de 1000 px */
+            .banner_part {
+                margin-top: -200px;
+                /* Elimina el margen superior entre el banner y el nav */
+            }
+
+            .section_padding {
+                padding-top: 50px;
+                padding-bottom: 200px;
+            }
         }
-    }
-</style>
+    </style>
 
 
 
@@ -101,42 +131,41 @@
 
             <div class="row">
                 <div id="medicaments"></div>
-                <?php  $count = 0; ?>
+                <?php $count = 0; ?>
                 @foreach ($medicamentos as $medicamento)
-              
-                @if ($count < 4)
-                <div class="col-sm-6 col-lg-3  d-flex justify-content-center ">
-                    <div class="single_blog_item">
-                        <div class="single_blog_img">
-                            @if ($medicamento->imagen)
-                                <img src="{{ asset('images/' . $medicamento->imagen) }}" class="medicamento-img"
-                                    alt="Imagen del Medicamento">
-                            @else
-                                <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="medicamento-img"
-                                    alt="Imagen por Defecto">
-                            @endif
+                    @if ($count < 4)
+                        <div class="col-sm-6 col-lg-3  d-flex justify-content-center ">
+                            <div class="single_blog_item">
+                                <div class="single_blog_img">
+                                    @if ($medicamento->imagen)
+                                        <img src="{{ asset('images/' . $medicamento->imagen) }}" class="medicamento-img"
+                                            alt="Imagen del Medicamento">
+                                    @else
+                                        <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="medicamento-img"
+                                            alt="Imagen por Defecto">
+                                    @endif
 
-                        </div>
-                        <div class="single_text ">
-                            <div class="single_blog_text">
-                                <h3>{{ $medicamento->nombre }}</h3>
-                                <p class="precio my-2">Precio: {{ $medicamento->precio }} $</p>
-
-                                <div class="col d-flex justify-content-center ">
-                                    <button class="btn btn-agregar-carrito " data-medicamento-id="{{ $medicamento->id }}">
-                                        <i class="ti-shopping-cart"></i> Agregar al carrito
-                                    </button>
                                 </div>
-                               
-                                
+                                <div class="single_text ">
+                                    <div class="single_blog_text">
+                                        <h3>{{ $medicamento->nombre }}</h3>
+                                        <p class="precio my-2">Precio: {{ $medicamento->precio }} $</p>
+
+                                        <div class="col d-flex justify-content-center ">
+                                            <button class="btn btn-agregar-carrito "
+                                                data-medicamento-id="{{ $medicamento->id }}">
+                                                <i class="ti-shopping-cart"></i> Agregar al carrito
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
-                    </div>
-                </div>
-             
-                @endif
-                <?php  $count = $count + 1; ?>
+                    @endif
+                    <?php $count = $count + 1; ?>
                 @endforeach
                 <a href="{{ route('medicine') }}" class="btn_2 my-5">Ver mas medicamentos</a>
             </div>
@@ -328,34 +357,36 @@
     </section>
     <script>
         var medicamentos = @json($medicamentos);
-        $(document).ready(function () {
-        // Inicializar el carrusel
-        $('#bannerCarousel').carousel();
-    });
+        $(document).ready(function() {
+            // Inicializar el carrusel
+            $('#bannerCarousel').carousel();
+        });
     </script>
-<style>
-    .btn-agregar-carrito {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #fff;
-  color: #ff6637;
-  border-color: #ff6637;
-  border-style:solid;  
-        
 
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
 
-.btn-agregar-carrito i {
-  margin-right: 5px;
-}
+    <style>
+        .btn-agregar-carrito {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #ff6637;
+            border-color: #ff6637;
+            border-style: solid;
 
-.btn-agregar-carrito:hover{
-    background-color: #ff6637;
-    border-color: #000;
 
-}
-</style>
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-agregar-carrito i {
+            margin-right: 5px;
+        }
+
+        .btn-agregar-carrito:hover {
+            background-color: #ff6637;
+            border-color: #000;
+
+        }
+    </style>
 @endsection

@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    
     var carrito = JSON.parse(localStorage.getItem("carrito")) || []; // Obtén el carrito guardado en localStorage si existe
     $("#enviarPedidoBtn").click(function () {
         if ($("#nombre").val() === "" || $("#email").val() === "") {
@@ -49,10 +50,8 @@ $(document).ready(function () {
        
     });
 
-    $(document).on("click", ".btn-agregar-carrito", function () {
-        var medicamentoId = $(this).data("medicamento-id");
 
-        // Busca el medicamento en la lista de medicamentos
+    function agregarAlCarrito(medicamentoId) {
         var medicamento = medicamentos.find(function (med) {
             return med.id === medicamentoId;
         });
@@ -69,16 +68,19 @@ $(document).ready(function () {
                     ...medicamento,
                     cantidad: 1
                 });
-                Swal.fire(
-                    '',
-                    'El producto ha sido añadido al carrito con éxito',
-                    'success'
-                )
+                Swal.fire('', 'El producto ha sido añadido al carrito con éxito', 'success');
             }
+
             $("#cartBadge").text(carrito.length);
             actualizarCarrito();
-
         }
+    }
+
+    $(document).on("click", ".btn-agregar-carrito", function () {
+        var medicamentoId = $(this).data("medicamento-id");
+
+        agregarAlCarrito(medicamentoId);
+
     });
 
     // Función para eliminar un medicamento del carrito
@@ -116,6 +118,9 @@ $(document).ready(function () {
         //carrito = [];
         //actualizarCarrito();
     });
+
+   
+    
     $(document).on("click", ".btn-aumentar-cantidad", function () {
         var medicamentoId = $(this).data("medicamento-id");
         var medicamento = carrito.find(function (item) {
@@ -143,6 +148,10 @@ $(document).ready(function () {
     function actualizarCarritoLocalStorage() {
         localStorage.setItem("carrito", JSON.stringify(carrito));
     }
+   
+    
+    // Resto del código JavaScript...
+    
     // Actualiza la visualización del carrito
     function actualizarCarrito() {
         var carritoHtml = "";
@@ -185,5 +194,42 @@ $(document).ready(function () {
 
     $("#cartBadge").text(carrito.length);
     actualizarCarrito();
+    if (document.getElementById("repetir-compra") == null) {
+        var currentPath = window.location.pathname;
 
+        if (currentPath.includes("/volver-a-comprar") ) {
+            // Si es verdad, muestra el mensaje
+            Swal.fire(
+                '',
+                'Los Productos no están disponibles o están fuera de stock',
+                'error'
+            );
+        }
+    
+
+    } else {
+        var medicamentoId = $(this).data("medicamento-id");
+        var productsListString = $("#repetir-compra").data("productsList");
+        var productsList = JSON.parse(productsListString);
+    
+        if (!Array.isArray(productsList)) {
+            try {
+                productsList = JSON.parse(productsList);
+            } catch (error) {
+                console.error("Error al convertir productsList a array:", error);
+                return;
+            }
+        }
+    
+    
+
+        productsList.forEach(element => {
+            agregarAlCarrito(element);
+        });
+
+    }
+    
+    
+    
+    
 });

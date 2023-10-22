@@ -16,7 +16,7 @@ class CreatePedidosTable extends Migration
             $table->string('direccion');
             $table->integer('telefono');
             $table->string('informacion')->nullable();
-         
+            $table->string('products_id')->nullable();
             $table->enum('status',['Pendiente', 'En Proceso' ,'Finalizado','Cancelado'])->default('Pendiente');
             $table->enum('paid_status',['success','failure','pending','approved'])->default('pending');
             $table->string('paid_id')->nullable();

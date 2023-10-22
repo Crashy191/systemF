@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use App\Models\Medicamento;
+use App\Models\Banner;
+
 use Illuminate\Http\Request;
 use MercadoPago\Preference; // Importa la clase MercadoPago\Preference
 
@@ -40,12 +42,15 @@ class PedidoController extends Controller
             }
         }
         $productosResumidos = [];
+        $id_productos = "";
         foreach ($carrito as $medicamento) {
             $producto = Medicamento::find($medicamento['id']);
             if ($producto) {
         
              
                 $productosResumidos[] = "{$producto->nombre} - Cantidad: {$medicamento['cantidad']}";
+                $id_productos = $id_productos . $producto->id . ",";
+            
             }
         }
 
@@ -59,7 +64,8 @@ class PedidoController extends Controller
             'informacion' => $request->input('informacion_adicional'),
             'total' => $totalPedido,
             'productos' =>  implode(', ', $productosResumidos), // Esto debería asignar un valor al campo 'productos'
-            'status' => 'Pendiente'
+            'status' => 'Pendiente',
+            'products_id' => $id_productos
         ];
     
         $pedido = new Pedido(); // Crear una nueva instancia de Pedido
@@ -71,7 +77,7 @@ class PedidoController extends Controller
         $pedido->total = $data['total'];
         $pedido->productos = $data['productos'];
         $pedido->status = $data['status'];
-        
+        $pedido->products_id = $data['products_id'];
         $pedido->save(); // Guardar el pedido en la base de datos
     
         if ($pedido) {
@@ -88,6 +94,33 @@ class PedidoController extends Controller
         return response()->json(['mensaje' => 'Pedido confirmado con éxito']);
     }
     
+    public function repetir_compra(Request $request){
+        // var_dump($request->route('id'));
+        $pedido = Pedido::findOrFail($request->route('id'));
+        // String
+        $array_ids_strings = explode(',', $pedido->products_id);
+        $array_ids_strings = array_filter($array_ids_strings); 
+
+          
+
+        // Numerico
+        $array_ids_numeric = array_map('intval', $array_ids_strings);
+        // print_r($array_ids);  
+        $products_list = [];
+        foreach ($array_ids_numeric as $id) {
+            $medicamento = Medicamento::find($id);
+            if ($medicamento->cantidad != 0) {
+                $products_list[] = $medicamento->id;
+            }
+        }
+        $banners = Banner::orderBy('id')->get();
+        $medicamentos = Medicamento::where('status', 'active')->orderBy('id', 'desc')->get();
+        $json_products_list = json_encode($products_list);
+
+        return view('frontend.index')->with('products_list', $json_products_list) 
+        ->with('medicamentos',$medicamentos)->with('banners', $banners);
+
+    }
 
     public function update_paid_status(Request $request){
 

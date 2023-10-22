@@ -47,7 +47,7 @@ class UsersController extends Controller
 
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
-        $data['role'] = 'customer';
+        $data['role'] = $request->input('role');
         $data['email_verified_at'] = now();
         $data['remember_token'] = '';
         $data['created_at'] = now();
@@ -56,7 +56,7 @@ class UsersController extends Controller
 
         $data['phone'] = $request->input('phone');
         $data['address'] = $request->input('address');
-
+    
         $status = User::create($data);
 
         if ($status) {

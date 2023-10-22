@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{ route('inicio') }}">
                         <img src="{{ asset('frontend/img/logo.jpg') }}" alt="logo" class="logo-img">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -255,3 +255,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script type="module" src="{{ asset('frontend/js/carrito.js') }}"></script>
+
+@if (!is_null(@$products_list) && count(json_decode($products_list)) > 0)
+
+<div id="repetir-compra" data-products-list="{{ json_encode($products_list) }}"></div>
+
+
+@endif

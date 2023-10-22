@@ -49,6 +49,7 @@ Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 Route::get('about', [HomeController::class, 'about'])->name('about');
 Route::get('contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('medicine', [HomeController::class, 'medicine'])->name('medicine');
+Route::get('volver-a-comprar/{id}',[App\Http\Controllers\PedidoController::class, 'repetir_compra'])->name('repetir-compra');
 Route::get('mail', [HomeController::class, 'mail'])->name('mail');
 Route::get('status/{pedido_id}', [App\Http\Controllers\PedidoController::class, 'update_paid_status'])->name('profif');
 Route::post('update-status/{id}', [App\Http\Controllers\PedidoController::class, 'update_status'])->name('update-status');;

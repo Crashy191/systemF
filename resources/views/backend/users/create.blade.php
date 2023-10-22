@@ -47,6 +47,17 @@
         </div>
 
         <div class="form-group">
+            <label for="role" class="col-form-label">Rol</label>
+            <select name="role" class="form-control">
+                <option value="customer">Usuario</option>
+                <option value="admin">Admin</option>
+            </select>
+            @error('role')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
             <label for="status" class="col-form-label">Estado</label>
             <select name="status" class="form-control">
                 <option value="active">Activo</option>

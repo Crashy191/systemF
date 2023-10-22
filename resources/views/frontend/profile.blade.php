@@ -109,9 +109,10 @@
             </div>
 
 
-            <div class="col-md-12 p-3  my-5 d-flex border-left justify-content-center align-items-center">
 
-                <div id="perfilMenu" class="profile-menu">
+
+            <div id="perfilMenu" class="profile-menu">
+                <div class="col-md-12 p-3  my-5 d-flex border-left justify-content-center align-items-center">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Tus Pedidos</h3>
@@ -125,6 +126,7 @@
                                         <th>Estado</th>
                                         <th>Total</th>
                                         <th>Fecha de Compra</th>
+                                        <th>Volver a Comprar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,6 +137,8 @@
                                             <td>{{ $pedido->status }}</td>
                                             <td>{{ $pedido->total }}</td>
                                             <td>{{ $pedido->created_at }}</td>
+                                            <td><a href="{{ route('repetir-compra', [ 'id' => $pedido->id]) }}"
+                                                    class="btn btn-primary">Volver a Comprar</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -142,19 +146,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                @if (session('success'))
-                    <div class="row">
-                        <div class="col-md-7 mx-auto">
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                        </div>
+            @if (session('success'))
+                <div class="row">
+                    <div class="col-md-7 mx-auto">
+                        <div class="alert alert-success">{{ session('success') }}</div>
                     </div>
-                @endif
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        {{ $errors->first() }}
-                    </div>
-                @endif
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+            <div class="col-md-5 p-3  my-5 d-flex border-left justify-content-center align-items-center">
+
                 <div id="passwordMenu" class="profile-menu">
                     <h6>Cambiar Contraseña</h6>
 
@@ -216,7 +223,9 @@
                     </form>
                 </div>
             </div>
+
         </div>
+
 
 
         <div class="row">
@@ -230,7 +239,7 @@
                 const parametro2 = getUrlParameter('status');
                 const parametro3 = getUrlParameter('payment_id');
                 console.log(parametro1, parametro2, parametro3);
-      
+
 
                 if (
                     parametro1 === 'valor_esperado_1' &&

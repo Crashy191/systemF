@@ -91,6 +91,11 @@
 
 
     $preference = new MercadoPago\Preference();
+
+    $shipments = new MercadoPago\Shipments();
+    $shipments->cost = 3000;
+    $shipments->mode = 'not_specified';
+    $preference->shipments = $shipments;
     // Crear un array de elementos de preferencia en lugar de modificar la propiedad directamente
     $items = [];
     
