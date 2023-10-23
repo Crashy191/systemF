@@ -149,7 +149,7 @@
                                 <div class="single_text ">
                                     <div class="single_blog_text">
                                         <h3>{{ $medicamento->nombre }}</h3>
-                                        <p class="precio my-2">Precio: {{ $medicamento->precio }} $</p>
+                                        <p class="precio my-2">Precio: $ {{ $medicamento->precio }} </p>
 
                                         <div class="col d-flex justify-content-center ">
                                             <button class="btn btn-agregar-carrito "
